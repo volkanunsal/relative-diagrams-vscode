@@ -1,0 +1,77 @@
+name: Publish to VS Code Marketplace
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - package.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-marketplace
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check if this version is already published
+        id: version_check
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null 2>&1; then
+            echo "Tag v$VERSION already exists, skipping publish."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install dependencies
+        if: steps.version_check.outputs.skip == 'false'
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        if: steps.version_check.outputs.skip == 'false'
+        run: pnpm run typecheck
+
+      - name: Build
+        if: steps.version_check.outputs.skip == 'false'
+        run: pnpm run build
+
+      - name: Test
+        if: steps.version_check.outputs.skip == 'false'
+        run: pnpm run test
+
+      - name: Publish to VS Code Marketplace
+        if: steps.version_check.outputs.skip == 'false'
+        run: npx --no-install vsce publish --no-dependencies
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Tag the published version
+        if: steps.version_check.outputs.skip == 'false'
+        env:
+          VERSION: ${{ steps.version_check.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v$VERSION"
+          git push origin "v$VERSION" || {
+            echo "::error::Tag push failed after a successful publish. v$VERSION is live on the Marketplace but untagged, so the next push touching package.json will retry the publish and fail. Recover manually: git tag v$VERSION $GITHUB_SHA && git push origin v$VERSION"
+            exit 1
+          }
