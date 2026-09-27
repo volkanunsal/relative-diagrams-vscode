@@ -1,0 +1,15 @@
+node_modules/**
+src/**
+test/**
+scripts/**
+docs/**
+examples/**
+.github/**
+.vscode/**
+.superpowers/**
+**/*.map
+media/logo-source.svg
+tsconfig.json
+esbuild.config.js
+pnpm-lock.yaml
+AGENTS.md
