@@ -33,3 +33,7 @@ test("ships the bundled library's notice", () => {
   assert.ok(existsSync(join(ROOT, "NOTICE")));
   assert.match(readFileSync(join(ROOT, "NOTICE"), "utf8"), /reladraw 0\.8\.0/);
 });
+
+test("contributes the preview stylesheet", () => {
+  assert.deepEqual(manifest.contributes["markdown.previewStyles"], ["./media/previewStyles.css"]);
+});

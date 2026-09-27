@@ -1,0 +1,83 @@
+.reladraw-diagram {
+  margin: 1em 0;
+}
+
+.reladraw-variant {
+  display: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.reladraw-variant[data-variant="file"],
+body:not(.vscode-light):not(.vscode-dark):not(.vscode-high-contrast):not(.vscode-high-contrast-light)
+  .reladraw-variant[data-variant="dark"],
+body.vscode-dark:not(.vscode-high-contrast) .reladraw-variant[data-variant="dark"],
+body.vscode-light:not(.vscode-high-contrast):not(.vscode-high-contrast-light)
+  .reladraw-variant[data-variant="light"],
+body.vscode-high-contrast:not(.vscode-high-contrast-light)
+  .reladraw-variant[data-variant="high-contrast-dark"],
+body.vscode-high-contrast-light .reladraw-variant[data-variant="high-contrast-light"] {
+  display: block;
+}
+
+.reladraw-variant svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.reladraw-zoom-controls {
+  position: absolute;
+  top: 0.25em;
+  left: 0.25em;
+  z-index: 1;
+  display: flex;
+  gap: 0.25em;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.reladraw-variant:hover .reladraw-zoom-controls {
+  opacity: 1;
+  visibility: visible;
+}
+
+.reladraw-zoom-controls button {
+  width: 1.8em;
+  height: 1.8em;
+  padding: 0;
+  border: 1px solid var(--vscode-widget-border, rgba(128, 128, 128, 0.35));
+  border-radius: 4px;
+  background: var(--vscode-editor-background, #fff);
+  color: var(--vscode-foreground, inherit);
+  font-size: 1em;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.reladraw-error {
+  margin: 1em 0;
+  border: 1px solid var(--vscode-inputValidation-errorBorder, #a1260d);
+  background: var(--vscode-inputValidation-errorBackground, rgba(161, 38, 13, 0.1));
+  color: var(--vscode-editor-foreground, inherit);
+  padding: 0.75em;
+  font-family: var(--vscode-editor-font-family, monospace);
+}
+
+.reladraw-error-message {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.reladraw-error-source {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.reladraw-error-line {
+  background: var(--vscode-editorError-background, rgba(255, 0, 0, 0.2));
+  color: inherit;
+  text-decoration: underline wavy var(--vscode-editorError-foreground, #f14c4c);
+}

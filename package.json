@@ -24,7 +24,8 @@
   "activationEvents": ["onLanguage:markdown"],
   "main": "./dist/extension.js",
   "contributes": {
-    "markdown.markdownItPlugins": true
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": ["./media/previewStyles.css"]
   },
   "scripts": {
     "typecheck": "tsc -p . --noEmit",
