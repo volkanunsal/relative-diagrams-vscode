@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Highlights Reladraw syntax in a standalone `.reladraw` file, not just inside a Markdown fence. Comment toggling and bracket matching work too. There is still no preview for a standalone file.
+
 ## 0.1.0
 
 - Renders `reladraw` code fences (backtick or tilde) as diagrams in the VS Code Markdown preview, using the bundled `reladraw` 0.8.0.

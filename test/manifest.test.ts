@@ -55,3 +55,17 @@ test("the markdown injection grammar embeds the reladraw language", () => {
   assert.deepEqual(injection.injectTo, ["text.html.markdown"]);
   assert.equal(injection.embeddedLanguages["meta.embedded.block.reladraw"], "reladraw");
 });
+
+test("standalone .reladraw files are recognized and highlighted", () => {
+  const language = manifest.contributes.languages.find(
+    (candidate: { id: string }) => candidate.id === "reladraw",
+  );
+  assert.deepEqual(language.extensions, [".reladraw"]);
+  assert.ok(existsSync(join(ROOT, language.configuration)), language.configuration);
+
+  const grammar = manifest.contributes.grammars.find(
+    (candidate: { scopeName: string }) => candidate.scopeName === "source.reladraw",
+  );
+  assert.equal(grammar.language, "reladraw");
+});
+

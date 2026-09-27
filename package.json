@@ -2,7 +2,7 @@
   "name": "relative-diagrams",
   "displayName": "Relative Diagrams",
   "description": "Renders Reladraw diagrams in the VS Code Markdown preview",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "VolkanUnsal",
   "license": "Apache-2.0",
   "icon": "media/icon.png",
@@ -30,7 +30,9 @@
     "languages": [
       {
         "id": "reladraw",
-        "aliases": ["Reladraw", "reladraw"]
+        "aliases": ["Reladraw", "reladraw"],
+        "extensions": [".reladraw"],
+        "configuration": "./syntaxes/reladraw.language-configuration.json"
       }
     ],
     "grammars": [

@@ -183,7 +183,8 @@ Scale is limited to the range 0.2 to 5.
 | Zoom and pan | Supported |
 | Absolute `url:` links such as `url: "https://..."` | Supported; opens in the browser |
 | Relative `url:` links such as `url: "./other.md"` | Not supported; clicking does nothing |
-| Standalone `.reladraw` files | Not supported |
+| Syntax highlighting in a standalone `.reladraw` file | Supported |
+| A preview for a standalone `.reladraw` file | Not supported |
 | Export to SVG or PNG | Not supported |
 | A setting that forces one theme for every diagram | Not supported |
 
