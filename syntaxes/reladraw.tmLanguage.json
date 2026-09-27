@@ -1,0 +1,46 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Reladraw",
+  "scopeName": "source.reladraw",
+  "patterns": [
+    {
+      "name": "comment.line.double-slash.reladraw",
+      "match": "\\/\\/.*"
+    },
+    {
+      "name": "string.quoted.double.reladraw",
+      "match": "\"(?:\\\\.|[^\"\\\\])*\"?"
+    },
+    {
+      "match": "^\\s*((?:diagram|default|style|node|edge)\\b)(?:\\s+((?:[^\\s()\"\\/]|\\/(?!\\/))(?:[^\\s\"\\/]|\\/(?!\\/))*))?",
+      "captures": {
+        "1": {
+          "name": "keyword.control.statement.reladraw"
+        },
+        "2": {
+          "name": "entity.name.reladraw"
+        }
+      }
+    },
+    {
+      "name": "keyword.operator.arrow.reladraw",
+      "match": "<->|->|<-"
+    },
+    {
+      "name": "constant.other.color.reladraw",
+      "match": "#[0-9A-Fa-f]{3,8}\\b"
+    },
+    {
+      "name": "variable.parameter.attribute.reladraw",
+      "match": "[A-Za-z][A-Za-z0-9_-]*:"
+    },
+    {
+      "name": "keyword.other.relation.reladraw",
+      "match": "\\b(?:bottom-center|right-center|bottom-right|horizontally|above-right|below-right|left-center|bottom-left|above-left|below-left|top-center|vertically|top-right|top-left|between|center|bottom|above|below|right|level|left|with|top|and|of|at|on)\\b"
+    },
+    {
+      "name": "punctuation.section.group.reladraw",
+      "match": "[()]"
+    }
+  ]
+}

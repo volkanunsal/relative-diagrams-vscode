@@ -41,3 +41,17 @@ test("contributes the preview stylesheet", () => {
 test("contributes the preview script", () => {
   assert.deepEqual(manifest.contributes["markdown.previewScripts"], ["./media/previewScript.js"]);
 });
+
+test("every contributed grammar file exists", () => {
+  for (const grammar of manifest.contributes.grammars) {
+    assert.ok(existsSync(join(ROOT, grammar.path)), grammar.path);
+  }
+});
+
+test("the markdown injection grammar embeds the reladraw language", () => {
+  const injection = manifest.contributes.grammars.find(
+    (grammar: { scopeName: string }) => grammar.scopeName === "markdown.reladraw.codeblock",
+  );
+  assert.deepEqual(injection.injectTo, ["text.html.markdown"]);
+  assert.equal(injection.embeddedLanguages["meta.embedded.block.reladraw"], "reladraw");
+});
