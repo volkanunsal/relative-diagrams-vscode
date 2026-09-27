@@ -39,7 +39,7 @@ To run one test file, use `pnpm exec node --test --import tsx test/<file>.test.t
 ## Rules
 
 - Any user-visible change to `contributes` in `package.json`, or any change to the theme mapping in `media/previewStyles.css` or `src/renderFence.ts`, updates `README.md` in the same commit.
-- `reladraw` is pinned to an exact version. `.github/dependabot.yml` opens a weekly PR when a new version is released, scoped to only that dependency; CI runs the full suite (including the grammar-freshness check and `test/examples.test.ts`) on it like any other PR, so a breaking reladraw release fails loudly instead of merging silently. To upgrade it, whether from that PR or by hand:
+- `reladraw` is pinned to an exact version. `.github/dependabot.yml` opens a weekly PR when a new version is released, scoped to only that dependency; CI runs the full suite (including the grammar-freshness check and `test/examples.test.ts`) on it like any other PR, so a breaking reladraw release fails loudly instead of merging silently. `.github/workflows/dependabot-auto-version.yml` pushes a patch version bump onto that same PR, so merging it both updates reladraw and prepares the next marketplace release — publishing itself still only happens when the merge lands on `main`, since that's what `publish.yml` watches. To upgrade it, whether from that PR or by hand:
   1. Run `pnpm run grammar` and commit the regenerated grammar.
   2. Run `pnpm exec node --test --import tsx test/examples.test.ts` and fix any failure.
   3. Re-check the id-reference forms in `node_modules/reladraw/dist/render.js`. `src/namespaceIds.ts` rewrites only `id="…"` and `url(#…)`, so any new form of internal id reference needs handling there.
