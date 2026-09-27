@@ -37,3 +37,7 @@ test("ships the bundled library's notice", () => {
 test("contributes the preview stylesheet", () => {
   assert.deepEqual(manifest.contributes["markdown.previewStyles"], ["./media/previewStyles.css"]);
 });
+
+test("contributes the preview script", () => {
+  assert.deepEqual(manifest.contributes["markdown.previewScripts"], ["./media/previewScript.js"]);
+});

@@ -15,11 +15,25 @@ async function build() {
     minify: !watchMode,
   });
 
+  const previewScriptContext = await esbuild.context({
+    entryPoints: ["src/previewScript.ts"],
+    bundle: true,
+    platform: "browser",
+    format: "iife",
+    target: "es2020",
+    outfile: "media/previewScript.js",
+    sourcemap: true,
+    minify: !watchMode,
+  });
+
   if (watchMode) {
     await extensionContext.watch();
+    await previewScriptContext.watch();
   } else {
     await extensionContext.rebuild();
+    await previewScriptContext.rebuild();
     await extensionContext.dispose();
+    await previewScriptContext.dispose();
   }
 }
 

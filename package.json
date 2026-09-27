@@ -25,6 +25,7 @@
   "main": "./dist/extension.js",
   "contributes": {
     "markdown.markdownItPlugins": true,
+    "markdown.previewScripts": ["./media/previewScript.js"],
     "markdown.previewStyles": ["./media/previewStyles.css"]
   },
   "scripts": {
