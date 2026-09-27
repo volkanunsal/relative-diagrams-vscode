@@ -85,7 +85,7 @@ To make the diagram follow the editor again, delete the `diagram theme:` line.
 When a fence has a mistake, the extension reports it in two places.
 
 1. In the editor, find the red squiggle under the failing line of the fence. Hover it, or open the Problems panel (`Ctrl+Shift+M`, or `Cmd+Shift+M` on macOS), to read the message. Its source is `reladraw`.
-2. In the preview, find the error card where the diagram would be. It shows the same message above the fence source, with the failing line highlighted.
+2. In the preview, find the error card where the diagram would be. It shows the message, prefixed with its line number, above the fence source, with the failing line highlighted.
 
 For example, this fence places neither node:
 
@@ -97,11 +97,13 @@ edge a -> b
 ```
 ````
 
-Both places report:
+The preview card reports:
 
 ```text
 line 2: exactly one node may say nothing about where it goes, but 2 do: "a", "b"
 ```
+
+The Problems panel reports the same message without the `line 2:` prefix, because the squiggle already marks the line.
 
 Fix the line the message names. Here that means placing `b` relative to `a`:
 

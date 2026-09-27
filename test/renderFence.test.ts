@@ -42,6 +42,24 @@ test("renders one file variant when the fence names its own theme", () => {
   assert.deepEqual(variantNames(renderFence(THEMED, 0)), ["file"]);
 });
 
+test("only the dark variant is visible without a stylesheet when the fence names no theme", () => {
+  const variants = [...parseHtml(renderFence(TWO_NODES, 0)).querySelectorAll(".reladraw-variant")];
+  const hiddenByVariant = Object.fromEntries(
+    variants.map((element) => [element.getAttribute("data-variant"), element.hasAttribute("hidden")]),
+  );
+  assert.deepEqual(hiddenByVariant, {
+    dark: false,
+    light: true,
+    "high-contrast-dark": true,
+    "high-contrast-light": true,
+  });
+});
+
+test("the file variant is not hidden when the fence names its own theme", () => {
+  const variant = parseHtml(renderFence(THEMED, 0)).querySelector(".reladraw-variant")!;
+  assert.equal(variant.hasAttribute("hidden"), false);
+});
+
 test("the file variant is rendered with no theme override", () => {
   const html = renderFence(THEMED, 0);
   const svgWithoutPrefixes = parseHtml(html)

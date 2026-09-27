@@ -97,6 +97,17 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.workspace.onDidChangeTextDocument((event) => scheduleRefresh(event.document)),
     vscode.workspace.onDidCloseTextDocument((document) => clearForUri(document.uri)),
     vscode.window.tabGroups.onDidChangeTabs((event) => {
+      for (const tab of event.opened) {
+        for (const uri of urisOfTab(tab)) {
+          const key = uri.toString();
+          const document = vscode.workspace.textDocuments.find(
+            (openDocument) => openDocument.uri.toString() === key,
+          );
+          if (document) {
+            refresh(document);
+          }
+        }
+      }
       for (const tab of event.closed) {
         for (const uri of urisOfTab(tab)) {
           if (!isUriStillVisible(uri)) {

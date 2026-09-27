@@ -6,6 +6,7 @@ import { namespaceIds } from "./namespaceIds";
 
 export const THEME_VARIANTS = ["dark", "light", "high-contrast-dark", "high-contrast-light"] as const;
 export const FILE_VARIANT = "file";
+const UNSTYLED_VISIBLE_VARIANTS = new Set<string>(["dark", FILE_VARIANT]);
 
 type CompileOptions = NonNullable<Parameters<typeof compile>[1]>;
 
@@ -80,7 +81,8 @@ export function renderFence(
       .map((variant) => {
         const svg = dependencies.compile(source, variant.options);
         const prefix = `rd-${sourceHash}-${fenceIndex}-${variant.name}-`;
-        return `<div class="reladraw-variant" data-variant="${variant.name}">${namespaceIds(svg, prefix)}</div>`;
+        const hiddenAttr = UNSTYLED_VISIBLE_VARIANTS.has(variant.name) ? "" : " hidden";
+        return `<div class="reladraw-variant" data-variant="${variant.name}"${hiddenAttr}>${namespaceIds(svg, prefix)}</div>`;
       })
       .join("");
     return `<div class="reladraw-diagram${wrapperClass}"${wrapperAttrs}>${variantHtml}</div>\n`;
