@@ -1,0 +1,70 @@
+// Everything about how a line is drawn, in its bracket: line: (…). A shape is
+// the rule for joining what the file fixed — where the line leaves and which
+// way it heads, where it arrives, and any sides it passes.
+
+// Out of A's top and into B's left, three ways.
+node a1 "A"
+node b1 "B"  right of a1  above a1  (gap: wide)
+edge a1 -> b1  "curved"  from: top  to: left
+
+node a2 "A"  right of a1  (gap: 220)
+node b2 "B"  right of a2  above a2  (gap: wide)
+edge a2 -> b2  "square"  from: top  to: left  line: (path: square)
+
+node a3 "A"  right of a2  (gap: 220)
+node b3 "B"  right of a3  above a3  (gap: wide)
+edge a3 -> b3  "straight"  from: top  to: left  line: (path: straight)
+
+// Rounded corners, and a square line naming no sides: across first, then down.
+node c1 "C"  below a1  (gap: 90)
+node d1 "D"  right of c1  below c1  (gap: wide)
+edge c1 -> d1  "rounded"  from: bottom  to: left  line: (path: square, corners: rounded)
+
+node c2 "C"  right of c1  (gap: 220)
+node d2 "D"  right of c2  below c2  (gap: wide)
+edge c2 -> d2  "no sides"  line: (path: square)
+
+// A pass: straight bends only where the clause makes it.
+node p1 "P"  below c1  (gap: 220)
+node q1 "Q"  right of p1  (gap: 220)
+node m1 "M"  right of p1  left of q1  level with p1
+edge p1 -> q1  "below M, square"  from: right  to: left  below m1  line: (path: square)
+
+node p2 "P"  below p1  (gap: 90)
+node q2 "Q"  right of p2  (gap: 220)
+node m2 "M"  right of p2  left of q2  level with p2
+edge p2 -> q2  "below M, straight"  from: right  to: left  below m2  line: (path: straight, corners: rounded)
+
+// Patterns and thicknesses.
+node f1 "F"  below p2  (gap: 90)
+node g1 "G"  right of f1  (gap: 220)
+edge f1 -> g1  "dashed"  line: (pattern: dashed)
+node f2 "F"  below f1  (gap: normal)
+node g2 "G"  right of f2  (gap: 220)
+edge f2 -> g2  "dotted"  line: (pattern: dotted)
+node f3 "F"  below f2  (gap: normal)
+node g3 "G"  right of f3  (gap: 220)
+edge f3 -> g3  "dash-dot"  line: (pattern: dash-dot)
+node h1 "H"  right of g1  (gap: 140)
+node k1 "K"  right of h1  (gap: 220)
+edge h1 -> k1  "thin"  line: (thickness: thin)
+node h2 "H"  below h1  (gap: normal)
+node k2 "K"  right of h2  (gap: 220)
+edge h2 -> k2  "thick"  line: (thickness: thick, color: #d2904e)
+node h3 "H"  below h2  (gap: normal)
+node k3 "K"  right of h3  (gap: 220)
+edge h3 -> k3  "4, dashed"  line: (thickness: 4, pattern: dashed)
+
+// Crossings: the later line jumps the earlier one.
+node w "W"  below f3  (gap: 150)
+node e "E"  right of w  (gap: 420)
+node n1 "N1"  below g3  (gap: 100)
+node n2 "N2"  right of n1  (gap: 30)
+node n3 "N3"  right of n2  (gap: 30)
+node s1 "S1"  below n1  (gap: 160)
+node s2 "S2"  right of s1  (gap: 30)
+node s3 "S3"  right of s2  (gap: 30)
+edge w -> e
+edge n1 -> s1  "arc"  line: (crossing: arc)
+edge n2 -> s2  "square"  line: (crossing: square)
+edge n3 -> s3  "gap"  line: (crossing: gap)

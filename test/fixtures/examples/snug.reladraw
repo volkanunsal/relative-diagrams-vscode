@@ -1,0 +1,7 @@
+// A node sits as close to what it names as its placements allow.
+
+node anchor "anchor"
+node far    "far"   right of anchor
+node near   "near"  right of far
+
+node trailing "one tight gap from near"  left of near  below anchor  gap: tight  overlap: allow  shape: none

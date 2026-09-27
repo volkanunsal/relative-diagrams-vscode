@@ -1,0 +1,38 @@
+// What a node is drawn as. `shape:` is the outline it is drawn with; `icon:` is
+// a picture it is drawn as, with no box at all.
+
+style artifact  fill: #460000  border: #4e4e4e  shape: document
+
+// The fold is a fixed size rather than a fraction of the box, so it looks the
+// same on all three of these.
+node narrow "Report"  style: artifact
+node medium "Nightly database dump"        right of narrow  gap: tight  style: artifact
+node wide   "A very much longer file name than either of the other two"  right of medium  gap: tight  style: artifact
+
+// A picture has no outline, no fill and no padding. The text goes underneath.
+node services ""  below narrow  gap: normal  fill: none  border: none
+node services.web    "web"                          icon: cube
+node services.api    "api"     right of services.web  gap: tight  icon: cube
+node services.worker "worker"  right of services.api  gap: tight  icon: cube
+
+// No text at all: a picture usually is the statement, so it gets no caption.
+node bare1  below services (gap: normal)  icon: cube
+node bare2  below bare1     gap: tight  icon: cube
+
+// A picture body is an ordinary node, so it takes edges and sides like any
+// other. That is what it buys over a badge, which cannot be the end of an arrow.
+node sink "collector"  right of bare1 and bare2 (gap: wide)  level with bare1, bare2
+edge bare1 -> sink  from: right  to: left
+edge bare2 -> sink  from: right  to: left
+
+// Any icon works as a body, not just the cube.
+node store  below bare2 (gap: normal)  icon: database
+node drive  right of store  gap: tight  icon: disk
+
+// `at: bottom-center` puts the text under the contents, and `align: center`
+// ranges its lines against each other; neither implies the other. The lower cube is centered under the upper
+// pair by naming both of them and nothing else.
+node pool "Worker pool" (at: bottom-center, align: center)  right of store and drive (gap: wide)  level with store, drive 
+node pool.one  icon: cube
+node pool.two  right of pool.one  gap: tight  icon: cube
+node pool.three  below pool.one and pool.two  gap: tight  icon: cube

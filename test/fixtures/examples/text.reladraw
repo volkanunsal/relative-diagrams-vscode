@@ -1,0 +1,67 @@
+// An edge with text widens the gap it crosses.
+
+style plain  fill: #191728  border: #4f5367
+
+// Nothing here says how far apart these two sit. The default gap is sized for
+// two nodes to breathe, not to hold a word, so the text opens it.
+node parser   "Parser"                     style: plain
+node resolver "Resolver"  right of parser  style: plain
+edge parser -> resolver  "statements"  from: right  to: left
+
+// The same two placements with nothing on the edge, for comparison.
+node sink  "Sink"   below parser (gap: wide)  style: plain
+node quiet "Quiet"  right of sink  level with sink       style: plain
+edge sink -> quiet  from: right  to: left
+
+// Going downward the text is only a line deep, so it opens the gap by one line
+// and hangs out either side.
+//
+// Written with `<-`, which is the same edge as `writer -> disk` and draws the
+// same picture. It just puts the node the line is about first.
+node writer "Writer"  right of resolver (gap: wide)  style: plain
+node disk   "Disk"    below writer                  style: plain
+edge disk <- writer  "flushed to disk"  from: bottom  to: top
+
+// Already wider than the text needs, so nothing moves.
+node roomy "Roomy"        below sink                                 style: plain
+node spare "Plenty spare"  right of roomy (gap: wide)  level with roomy  style: plain
+edge roomy -> spare  "fits"  from: right  to: left
+
+// Corner to corner, so there is no single gap the text sits in and nothing is
+// widened for it.
+node high "High"  right of writer (gap: wide)  style: plain
+node low  "Low"   below high  right of high  style: plain
+edge high -> low  "diagonal"
+
+
+// --- What the brackets after a text say ------------------------------------
+// `at` is where the block of text sits — one of the nine named positions —
+// and `align` is how its lines range against each other once it is there.
+// Neither implies the other.
+
+style dim  text: (color: muted)
+
+node shelf "Shelf" (at: bottom-right, align: right)  below roomy (gap: wide)  style: plain
+node shelf.one "first"   style: plain
+node shelf.two "second"  below shelf.one (gap: tight)  style: plain
+
+// A box is usually the size of its own text, so `at` is inert on one. An icon
+// against the box's right side is two lines tall, which gives a shorter text
+// beside it room to move. A badge would not: it is placed against the text, so
+// it goes where the text goes.
+node tall "Top" (at: top-left)     right of shelf (gap: wide)  style: plain
+node tall.disk  icon: disk  inside tall right
+node deep "Bottom" (at: bottom-left)  below tall (gap: tight)  style: plain
+node deep.disk  icon: disk  inside deep right
+
+// `size` and `wrap` are properties of the text too. The wrap is a count of
+// characters, not a distance: it says how much fits on a line and nothing
+// about where anything sits.
+node aside "A quiet remark that folds itself, with [dim]one word[/dim] quieter than the rest." (size: small, wrap: 28)  right of tall (gap: wide)  shape: none
+
+// A literal bracket is written \[, since [ opens markup.
+node literal "sizes \[small, normal, large]"  below aside  gap: tight  shape: none
+
+// An edge's text takes the same brackets, less `at`. A size may be a number of
+// pixels as well as a name.
+edge tall -> aside  "carried" (color: muted, size: 12)  from: right  to: left

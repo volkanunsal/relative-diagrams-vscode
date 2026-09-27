@@ -1,0 +1,37 @@
+// `shape: circle`. A circle is as big as it needs to be to hold its text, and
+// always round.
+
+style state  shape: circle  border: #5cf05c
+style step   border: #ff6666
+
+// A small picture from a TikZ tutorial, which asked for circles.
+node 1  style: state
+node 2  below 1  style: step
+node 3  right of 2  style: step
+node 4  below 2  style: state
+
+edge 1 -> 2
+edge 2 -> 3
+edge 3 -> 4  from: bottom  to: right
+
+// A circle sizes from its text like any box, so a longer text makes a bigger
+// circle rather than an oval.
+node idle     "idle"                   right of 3  gap: wide  style: state
+node working  "working on it / slowly" below idle  gap: wide  style: state
+
+// Several edges on one side of a circle fan out round its quarter, each
+// meeting it square on.
+node a "a"  right of working  gap: wide  style: step
+node b "b"  below a  gap: normal  style: step
+node c "c"  below b  gap: normal  style: step
+edge a -> working  from: left  to: right
+edge b -> working  from: left  to: right
+edge c -> working  from: left  to: right
+
+// An edge naming no side meets the circle where the line to the far end
+// crosses it.
+edge idle -> 3
+
+// A corner of a circle is the point on it halfway round, not the corner of
+// the square around it.
+node dot ""  on idle top-right  shape: circle

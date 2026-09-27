@@ -1,0 +1,73 @@
+// Saying which side of a node a line passes. `below resolver` on an edge means
+// that where the line passes Resolver, it is below it — not that the whole line
+// is. The line meets the nodes in the order they sit along its way.
+
+// The row that goes over the top by default, sent underneath instead.
+node parser "Parser"
+node resolver "Resolver"  right of parser
+node renderer "Renderer"  right of resolver
+
+edge parser -> renderer  "underneath"  from: left  to: right  below resolver
+
+// Two clauses on opposite sides: the line crosses over in the gap between.
+node a "A"  below parser  (gap: 90)
+node b "B"  below a  (gap: normal)
+
+edge a -> b  "an S"  from: top  to: bottom  left of a  right of b
+
+// Out of the top and round the left, where the default would go round the right.
+node p "P"  right of a  (gap: 220)
+node q "Q"  below p  (gap: normal)
+
+edge p -> q  "the left"  from: top  to: top  left of p
+
+// Three separate clauses: under each end, rising over the one in the middle.
+node t1 "T1"  below b  (gap: 90)
+node t2 "T2"  right of t1  (gap: 160)
+node peak "Peak"  right of t1  left of t2  above t1  (gap: tight)
+
+edge t1 -> t2  "weave"  from: bottom  to: bottom  below t1  above peak  below t2
+
+// One clause naming two nodes: under the whole stretch, with no rising
+// between them. Adding "above peak2" to this one would be refused, because
+// Peak2 sits over that stretch.
+node u1 "U1"  right of t2  (gap: 90)
+node u2 "U2"  right of u1  (gap: 160)
+node peak2 "Peak2"  right of u1  left of u2  above u1  (gap: tight)
+
+edge u1 -> u2  "under both"  from: left  to: right  below u1 and u2
+
+// An end naming no side leaves from the one facing where the line goes.
+node x "X"  below t1  (gap: 90)
+node z "Z"  right of x
+node y "Y"  right of z
+
+edge x -> y  "no sides named"  below z
+
+// Both kinds on one edge: across under one node, then down past another. The
+// line turns once between them, across first when no end names a side.
+node la "LA"  below x  (gap: 90)
+node lm "LM"  right of la  (gap: 60)
+node ln "LN"  below lm  right of lm  (gap: 40)
+node lb "LB"  below ln  right of ln  (gap: 40)
+
+edge la -> lb  "an L"  below lm  left of ln
+
+// A named side says which way it goes first, and several clauses of the
+// second kind weave as they do on their own.
+node wa "WA"  right of lm  (gap: 200)
+node wm "WM"  right of wa  (gap: 60)
+node wn "WN"  below wm  right of wm  (gap: 40)
+node wb "WB"  below wn  (gap: 70)
+
+edge wa -> wb  from: right  to: bottom  below wm  right of wn  left of wb
+
+// Clauses of one kind in two legs: over one node on the way out, under
+// another on the way in, so the line turns twice.
+node za "ZA"  below lb  left of lb  (gap: 90)
+node zp "ZP"  right of za  (gap: 60)
+node zn "ZN"  below zp  right of zp  (gap: 40)
+node zm "ZM"  below zn  right of zn  (gap: 40)
+node zb "ZB"  right of zm  (gap: 60)
+
+edge za -> zb  from: right  to: bottom  above zp  right of zn  below zm

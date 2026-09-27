@@ -1,0 +1,22 @@
+// A deck draws offset copies behind a node to say "there are several of these
+// and they are the same". Only the front copy shows its contents.
+
+style plain  fill: #191728  border: #4f5367
+
+// The usual case: a container with rows, and two more like it behind. Each
+// text is one copy, back to front.
+node drive          "Drive 1"  badge: disk  deck: "Drive 2" "Drive 3"  contents: (widths: match)
+node drive.backup   "shared folder / backup"  style: plain
+node drive.archive  "archive"                 style: plain
+
+// A deck of a leaf, with one copy behind it.
+node worker "worker"  right of drive (gap: wide)  level with drive  deck: "worker"  style: plain
+
+// The copies are part of the node, and they hang up and to the left. Something
+// placed above or left of a deck clears the whole stack, so this sits a gap
+// away from the back card, not the front one.
+node source "source"  above drive  style: plain
+
+// An annotation may overlap the blank area of the trailing cards, as one
+// beside a row does in a drawing, by saying so.
+node rotated "swapped weekly"  left of drive.backup  gap: tight  overlap: allow  shape: none

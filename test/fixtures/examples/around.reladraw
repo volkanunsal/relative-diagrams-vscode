@@ -1,0 +1,68 @@
+// Edges whose two ends face away from each other. Each has to turn back on
+// itself, and a single curve could only do that through its own nodes. So the
+// line runs along the gap between its two nodes when there is room for it, and
+// over the top of the row when there is not.
+
+// The case that found it: level, with a node in the middle, and a text that
+// used to land on that node.
+node parser "Parser"
+node resolver "Resolver"  right of parser
+node renderer "Renderer"  right of resolver
+
+edge parser -> resolver    "statements"  from: right  to: left
+edge resolver -> renderer  "layout"      from: right  to: left
+edge parser -> renderer    "test edge"   from: left   to: right
+
+// Two nodes side by side. The text goes over the top and the gap stays as it
+// was, since no text rides in it.
+node a "A"  below parser  (gap: wide)
+node b "B"  right of a
+
+edge a -> b  "adjacent"  from: left  to: right
+
+// A taller node in the way lifts the whole run over it.
+node c "C"  right of b  (gap: wide)
+node tall "Tall / middle / node"  right of c
+node d "D"  right of tall
+
+edge c -> d  "over the tall one"  from: left  to: right
+
+// Stepped down, with a gap wide enough: the line turns back through it.
+node e "E"  below a  (gap: wide)
+node f "F"  right of e  (gap: wide)  below e  (gap: normal)
+
+edge e -> f  "through the gap"  from: left  to: right
+
+// Stepped down with too little room between them: over the top again.
+node g "G"  right of f  (gap: wide)  level with e
+node h "H"  right of g  (gap: wide)  below g  (gap: tight)
+
+edge g -> h  "no room below"  from: left  to: right
+
+// A column goes round the right.
+node top "Top"  right of d  (gap: wide)
+node bottom "Bottom"  below top
+
+edge top -> bottom  "column"  from: top  to: bottom
+
+// And an edge from a node back to itself.
+node self "Self"  below bottom  (gap: wide)
+
+edge self -> self  "itself"  from: left  to: right
+
+// Two loops over one row take a lane each, the shorter inside.
+node j "J"  below e  (gap: 200)
+node k "K"  right of j
+node l "L"  right of k
+
+edge j -> l  "outer"  from: left  to: right
+edge j -> k  "inner"  from: left  to: right
+
+// Sides at right angles, one facing away: out of the left, up over the row,
+// and down into the top. The side the far end names says which way round.
+node m "M"  right of l  (gap: wide)
+node n "N"  right of m
+node o "O"  right of n
+
+edge m -> o  "into the top"  from: left  to: top
+edge m -> o  "into the bottom"  from: left  to: bottom
