@@ -4,7 +4,7 @@ This fence has two unplaced nodes. The preview shows an error card and the edito
 
 ```reladraw
 node a "A"
-node b "B" right of a
+node b "B"
 edge a -> b
 ```
 
