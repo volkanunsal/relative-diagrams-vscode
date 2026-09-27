@@ -12,16 +12,6 @@ function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 
-// The initial view is always scale 1, translate (0, 0) -- not a fit-to-view
-// computation. An earlier version tried to auto-shrink to fit both width
-// AND height, which crushed tall-but-narrow diagrams (sequential
-// flowcharts, some mindmaps) down to a fraction of a readable size just to
-// satisfy a height cap. Width already gets handled for free by this
-// extension's existing `max-width: 100%; height: auto` CSS on the SVG
-// (unaffected by the scale(1) transform, since transform doesn't change
-// the layout box); tall diagrams are left to extend the page's natural
-// height, same as before zoom/pan existed. Zooming beyond that is an
-// explicit user action (buttons or ctrl/cmd+scroll), never automatic.
 const INITIAL_STATE: ZoomPanState = { scale: 1, translateX: 0, translateY: 0 };
 
 function isPanModifierPressed(event: MouseEvent): boolean {

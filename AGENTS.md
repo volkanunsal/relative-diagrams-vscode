@@ -25,7 +25,7 @@ To run one test file, use `pnpm exec node --test --import tsx test/<file>.test.t
 - `src/renderFence.ts` compiles a fence into four theme variants, into one when the fence names a theme, or into an error card.
 - `src/namespaceIds.ts` prefixes `id="…"` and `url(#…)` in each SVG so ids stay unique across the page.
 - `src/diagnostics/` finds fences in a document and turns compile errors into editor diagnostics.
-- `src/grammar/buildGrammar.ts` and `scripts/writeGrammar.ts` build the TextMate grammar from Reladraw's exported `PATTERNS`, `STATEMENT_KEYWORDS`, and `RELATION_WORDS`.
+- `src/grammar/buildGrammar.ts` and `scripts/writeGrammar.ts` build the TextMate grammar from Reladraw's exported `PATTERNS`, which is itself assembled from `STATEMENT_KEYWORDS` and `RELATION_WORDS` inside reladraw.
 - `src/previewScript.ts`, `src/attachZoom.ts`, and `src/zoomPan.ts` add zoom and pan in the preview. esbuild bundles them into `media/previewScript.js`.
 - `media/previewStyles.css` picks the visible theme variant from the preview's body class and styles the error card and zoom controls.
 - `media/logo-source.svg` is the source for `media/icon.png` and `media/logo.png`.

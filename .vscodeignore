@@ -13,3 +13,4 @@ tsconfig.json
 esbuild.config.js
 pnpm-lock.yaml
 AGENTS.md
+.gitignore

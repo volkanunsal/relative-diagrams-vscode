@@ -210,10 +210,6 @@ test("dragging pans only once zoomed in past scale 1; no-op at scale 1", () => {
 });
 
 test("initial scale is always 1, regardless of the diagram's natural size (no auto-fit)", () => {
-  // A tall-and-narrow diagram (e.g. a sequential flowchart) must NOT be
-  // auto-shrunk to fit the viewport height -- that was the bug: it made
-  // such diagrams start far too zoomed out. Width is left to the existing
-  // `max-width: 100%; height: auto` CSS on the SVG, not JS.
   const { diagramElement, viewport, svg } = makeViewport(200, 100, {
     width: 60,
     height: 900,
