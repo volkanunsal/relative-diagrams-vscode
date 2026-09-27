@@ -7,11 +7,11 @@
 <p align="center">Render Reladraw diagrams in the VS Code Markdown preview.</p>
 
 <p align="center">
-  <img alt="VS Code Marketplace" src="https://img.shields.io/visual-studio-marketplace/v/VolkanUnsal.relative-diagrams?label=VS%20Code%20Marketplace">
-  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue">
+  <a href="https://marketplace.visualstudio.com/items?itemName=VolkanUnsal.relative-diagrams"><img alt="VS Code Marketplace" src="https://img.shields.io/visual-studio-marketplace/v/VolkanUnsal.relative-diagrams?label=VS%20Code%20Marketplace"></a>
+  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue"></a>
 </p>
 
-Reladraw is a text language for diagrams where you say where things go relative to each other: `below app.ui`, `right of app`, `level with app`. You never pick coordinates. This extension draws every `reladraw` code fence in a Markdown file as a diagram in the preview, colors it to match your editor theme, and marks mistakes in the editor as you type.
+[Reladraw](https://reladraw.dev) is a text language for diagrams where you say where things go relative to each other: `below app.ui`, `right of app`, `level with app`. You never pick coordinates. This extension draws every `reladraw` code fence in a Markdown file as a diagram in the preview, colors it to match your editor theme, and marks mistakes in the editor as you type.
 
 ## Quick start
 
