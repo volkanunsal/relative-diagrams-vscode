@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       reladraw:
-        specifier: 0.8.0
-        version: 0.8.0
+        specifier: 0.15.0
+        version: 0.15.0
     devDependencies:
       '@types/jsdom':
         specifier: ^30.0.0
@@ -1308,8 +1308,8 @@ packages:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
     engines: {node: '>= 6'}
 
-  reladraw@0.8.0:
-    resolution: {integrity: sha512-YkJ8fHX1iZEeWyfPjqOvjU86gYqvibzLdnvgDYkASPvQ3rNiznRhGjTWK8wJUTSAX237O9hZlcbQEIrF0hp6BA==}
+  reladraw@0.15.0:
+    resolution: {integrity: sha512-cuG1Nd4GBig+hz2pe/6bAheBkDElzjSPWrp+MbzNkJBKmq01fccrq6ol/5lziyoN8J/UKkcwlRtHjdJGSEEY/A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2943,7 +2943,7 @@ snapshots:
       util-deprecate: 1.0.2
     optional: true
 
-  reladraw@0.8.0: {}
+  reladraw@0.15.0: {}
 
   require-from-string@2.0.2: {}
 
