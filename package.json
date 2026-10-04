@@ -62,7 +62,7 @@
     "vscode:prepublish": "pnpm run compile"
   },
   "dependencies": {
-    "reladraw": "0.8.0"
+    "reladraw": "0.15.0"
   },
   "devDependencies": {
     "@types/jsdom": "^30.0.0",
